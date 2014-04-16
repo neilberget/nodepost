@@ -1,0 +1,18 @@
+#!/usr/bin/env ruby
+# vim: ft=ruby
+
+require 'nodepost'
+require 'awesome_print'
+
+options = {
+  base_url: ENV['NODEGROUPS_BASE_URL']
+}
+
+unless options[:base_url] && options[:base_url].length > 0
+  puts "The environment variable NODEGROUPS_BASE_URL must be set."
+  exit
+end
+
+client = Nodepost::NodeGroupsClient.new(options)
+puts client.get_nodes_from_nodegroup(ARGV[0]).join "\n"
+
